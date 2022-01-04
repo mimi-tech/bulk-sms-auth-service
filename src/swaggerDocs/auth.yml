@@ -1,0 +1,480 @@
+paths:
+  /create-users-account:
+    post:
+      tags: # Tag property
+        - AUTH # Value of the tag
+      summary: USERS ACCOUNT ENDPOINT FOR CHURCH ADMINS.
+      produces:
+        - application/json
+      parameters:
+        - in: body # request body
+          name:   send-sms-account-registration # name of request, can be any name
+          description: It enables users to create account
+          required: true # can also be true depending on user preference
+          schema: # Schema definition
+            $ref: "#/definitions/userAccount"
+      responses: # server responses
+        201:
+          description: should return users account registration successful
+
+  /login:
+    post:
+      tags: # Tag property
+        - AUTH # Value of the tag
+      summary: GENERAL LOGIN ENDPOINT FOR CHURCH USERS BOTH ADMINS AND MEMBERS.
+      produces:
+        - application/json
+      parameters:
+        - in: body # request body
+          name:  general login endpoint # name of request, can be any name
+          description: It enables all church account types to login
+          required: true # can also be true depending on user preference
+          schema: # Schema definition
+            $ref: "#/definitions/generalLogin"
+      responses: # server responses
+        201:
+          description: should return login successful
+
+  /validate-user-token: # path of the grp from your endpoint
+    post:
+      tags: # Tag property
+        - AUTH # Value of the tag
+      summary: ENDPOINT FOR VALIDATIONG TOKEN
+      produces:
+        - application/json
+      parameters: # request parameters
+        - in: body # request body
+          name: for validating user token # name of request, can be any name
+          description: It enables user to validate auth token
+          required: true # can also be true depending on user preference
+          schema: # Schema definition
+            $ref: "#/definitions/verifyToken"
+      responses: # server responses
+        201:
+          description: should return user details
+
+
+
+
+
+  /get-all-users:
+    get:
+      tags:
+        - GET ALL USERS # Value of the tag
+      summary: GET ALL USERS.
+      produces:
+        - application/json
+      parameters:
+        - in: header
+          name: authorization
+          description: access token
+          required: true
+          default: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfZW1haWwiOiJtaXJpYW1AZ21haWwuY29tIiwiaWQiOiI0NmQ5ZWVkYy1lY2ZlLTRhMGUtODNiYi0wMGJlYzVkMmM4NjUiLCJpYXQiOjE2NDEzMTIxMzUsImV4cCI6MTY0MTMxMzkzNX0.Y6reQsGCnoSAuZBgFcTaiAC1cbvppUOFaFVs_1yjWEo
+
+        - in: query
+          name: page
+          type: number
+          default: 1
+          required: true
+      responses:
+        200:
+          description: should return all church members
+
+
+
+
+  /get-user-by-id:
+    get:
+      tags:
+        - GET A USER BY ID # Value of the tag
+      summary: GET A USER.
+      produces:
+        - application/json
+      parameters:
+        - in: header
+          name: authorization
+          description: access token
+          required: true
+          default: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfZW1haWwiOiJtaXJpYW1AZ21haWwuY29tIiwiaWQiOiI0NmQ5ZWVkYy1lY2ZlLTRhMGUtODNiYi0wMGJlYzVkMmM4NjUiLCJpYXQiOjE2NDEzMTIxMzUsImV4cCI6MTY0MTMxMzkzNX0.Y6reQsGCnoSAuZBgFcTaiAC1cbvppUOFaFVs_1yjWEo
+
+
+        - in: query
+          name: authId
+          type: string
+          default: a5970193-826b-4163-ad34-c2edc2f2187a
+          required: true
+      responses:
+        200:
+          description: should return a church member
+
+
+
+  /update-user-data-by-id:
+    put:
+      tags:
+        - UPDATE A USER ACCOUNT # Value of the tag
+      summary: UPDATE A USER ACCOUNT
+      produces:
+        - application/json
+      parameters:
+        - in: header
+          name: authorization
+          description: access token
+          required: true
+          default: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfZW1haWwiOiJtaXJpYW1AZ21haWwuY29tIiwiaWQiOiI0NmQ5ZWVkYy1lY2ZlLTRhMGUtODNiYi0wMGJlYzVkMmM4NjUiLCJpYXQiOjE2NDEzMTIxMzUsImV4cCI6MTY0MTMxMzkzNX0.Y6reQsGCnoSAuZBgFcTaiAC1cbvppUOFaFVs_1yjWEo
+        - in: body # request body
+          name:   update-account # name of request, can be any name
+          description: It enables user account to be updated
+          required: true # can also be true depending on user preference
+          schema: # Schema definition
+            $ref: "#/definitions/updateUserAuthData"
+      responses:
+        200:
+          description: should return a user
+     
+
+  
+
+
+
+
+  /delete-user-by-id:
+    delete:
+      tags:
+        - DELETE USER ACCOUNT BY ID # Value of the tag
+      summary: DELETE USER ACCOUNT.
+      produces:
+        - application/json
+      parameters:
+        - in: header
+          name: authorization
+          description: access token
+          required: true
+          default: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfZW1haWwiOiJtaXJpYW1AZ21haWwuY29tIiwiaWQiOiI0NmQ5ZWVkYy1lY2ZlLTRhMGUtODNiYi0wMGJlYzVkMmM4NjUiLCJpYXQiOjE2NDEzMTIxMzUsImV4cCI6MTY0MTMxMzkzNX0.Y6reQsGCnoSAuZBgFcTaiAC1cbvppUOFaFVs_1yjWEo
+        - in: body # request body
+          name:   delete-account # name of request, can be any name
+          description: It enables users account to be deleted
+          required: true # can also be true depending on user preference
+          schema: # Schema definition
+            $ref: "#/definitions/deleteAccount"
+
+
+      responses:
+        200:
+          description: should return account deleted successfully
+
+
+ 
+
+  /update-password:
+    put:
+      tags: # Tag property
+        - UPDATE PASSWORD # Value of the tag
+      summary: FOR UPDATING PASSWORD
+      produces:
+        - application/json
+      parameters:
+        - in: body # request body
+          name:   update-password # name of request, can be any name
+          description: It enables users to update their password
+          required: true # can also be true depending on user preference
+          schema: # Schema definition
+            $ref: "#/definitions/updatePassword"
+      responses: # server responses
+        200:
+          description: should return password updated successfully
+
+
+
+
+
+
+  /update-phone-number:
+    put:
+      tags: # Tag property
+        - UPDATE PHONE NUMBER # Value of the tag
+      summary: FOR UPDATING PHONE NUMBER
+      produces:
+        - application/json
+      parameters:
+
+        - in: header
+          name: authorization
+          description: access token
+          required: true
+          default: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfZW1haWwiOiJtaXJpYW1AZ21haWwuY29tIiwiaWQiOiI0NmQ5ZWVkYy1lY2ZlLTRhMGUtODNiYi0wMGJlYzVkMmM4NjUiLCJpYXQiOjE2NDEzMTIxMzUsImV4cCI6MTY0MTMxMzkzNX0.Y6reQsGCnoSAuZBgFcTaiAC1cbvppUOFaFVs_1yjWEo
+        - in: body # request body
+          name:   update-phone-number# name of request, can be any name
+          description: It enables users to update their phone number
+          required: true # can also be true depending on user preference
+          schema: # Schema definition
+            $ref: "#/definitions/updatePhoneNumber"
+      responses: # server responses
+        200:
+          description: should return phone number updated successfully
+
+            
+            
+  /update-message-count:
+    put:
+      tags:
+        - UPDATE USERS MESSAGE COUNT # Value of the tag
+      summary: UPDATE USERS MESSAGE COUNT BY ID.
+      produces:
+        - application/json
+      parameters:
+        - in: header
+          name: authorization
+          description: access token
+          required: true
+          default: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfZW1haWwiOiJtaXJpYW1AZ21haWwuY29tIiwiaWQiOiI0NmQ5ZWVkYy1lY2ZlLTRhMGUtODNiYi0wMGJlYzVkMmM4NjUiLCJpYXQiOjE2NDEzMTIxMzUsImV4cCI6MTY0MTMxMzkzNX0.Y6reQsGCnoSAuZBgFcTaiAC1cbvppUOFaFVs_1yjWEo
+        - in: body # request body
+          name:   update-message-count # name of request, can be any name
+          description: It enables users message count
+          required: true # can also be true depending on user preference
+          schema: # Schema definition
+            $ref: "#/definitions/updateMessageCount" 
+      responses: # server responses
+        200:
+          description: should return member count has added
+
+
+
+  /update-email-address:
+    put:
+      tags:
+        - UPDATE USER EMAIL # Value of the tag
+      summary: UPDATE USER EMAIL BY ID.
+      produces:
+        - application/json
+      parameters:
+        - in: header
+          name: authorization
+          description: access token
+          required: true
+          default: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfZW1haWwiOiJtaXJpYW1AZ21haWwuY29tIiwiaWQiOiI0NmQ5ZWVkYy1lY2ZlLTRhMGUtODNiYi0wMGJlYzVkMmM4NjUiLCJpYXQiOjE2NDEzMTIxMzUsImV4cCI6MTY0MTMxMzkzNX0.Y6reQsGCnoSAuZBgFcTaiAC1cbvppUOFaFVs_1yjWEo
+        - in: body # request body
+          name:   update-email-address # name of request, can be any name
+          description: It enables email address to be updated
+          required: true # can also be true depending on user preference
+          schema: # Schema definition
+            $ref: "#/definitions/emailAddress" 
+      responses: # server responses
+        200:
+          description: should return member church updated successfully
+
+
+
+
+  /update-wallet:
+    put:
+      tags:
+        - UPDATE USER WALLET # Value of the tag
+      summary: UPDATE USER WALLET BY ID.
+      produces:
+        - application/json
+      parameters:
+        - in: header
+          name: authorization
+          description: access token
+          required: true
+          default: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfZW1haWwiOiJtaXJpYW1AZ21haWwuY29tIiwiaWQiOiI0NmQ5ZWVkYy1lY2ZlLTRhMGUtODNiYi0wMGJlYzVkMmM4NjUiLCJpYXQiOjE2NDEzMTIxMzUsImV4cCI6MTY0MTMxMzkzNX0.Y6reQsGCnoSAuZBgFcTaiAC1cbvppUOFaFVs_1yjWEo
+        - in: body # request body
+          name:   update-wallet # name of request, can be any name
+          description: It enables wallet to be updated
+          required: true # can also be true depending on user preference
+          schema: # Schema definition
+            $ref: "#/definitions/walletUpdate" 
+      responses: # server responses
+        200:
+          description: should return wallet updated successfully
+
+  /send-bulk-message:
+    post:
+      tags:
+        - SEND BULK MESSAGE # Value of the tag
+      summary: SEND BULK MESSAGE.
+      produces:
+        - application/json
+      parameters:
+        - in: header
+          name: authorization
+          description: access token
+          required: true
+          default: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfZW1haWwiOiJtaXJpYW1AZ21haWwuY29tIiwiaWQiOiI0NmQ5ZWVkYy1lY2ZlLTRhMGUtODNiYi0wMGJlYzVkMmM4NjUiLCJpYXQiOjE2NDEzMTY2MzgsImV4cCI6MTY0MTMxODQzOH0.Jw52ePK9Rw1Jrvg5bA-1E_a9CSk1lILeNo6FTQZ7mho
+        - in: body # request body
+          name:   send-bulk-message # name of request, can be any name
+          description: It enables users send messages 
+          required: true # can also be true depending on user preference
+          schema: # Schema definition
+            $ref: "#/definitions/sendMessages"
+
+
+      responses:
+        200:
+          description: should return message sent successfully
+  
+
+
+definitions: # Schema definition for request body
+  userAccount:
+    type: object
+    properties:
+      email:
+          type: string
+          default: miriam@gmail.com
+      password:
+          type: string
+          default: password
+
+     
+
+      phoneNumber:
+          type: string
+          default: +2348037335555
+      
+      fullName:
+          type: string
+          default: Mimi Austin
+           
+
+
+  generalLogin:
+    type: object
+    properties:
+      email:
+          type: string
+          default: miriam@gmail.com
+      password:
+          type: string
+          default: password
+
+       
+ 
+
+
+  updateUserAuthData:
+    type: object
+    properties:
+      authId:
+          type: string
+          default: 6c02428b-2fc4-4cc2-b923-c045401f84b
+      
+      
+      fullName:
+          type: string
+          default: Mimi Austin
+          
+   
+     
+
+
+  deleteAccount:
+    type: object
+    properties:
+      authId:
+          type: string
+          default: 6c02428b-2fc4-4cc2-b923-c045401f84bf
+
+ 
+  verifyToken:
+    type: object
+    properties:
+      token:
+          type: string
+          default: pass in user token
+
+
+          
+
+
+  updatePassword:
+    type: object
+    properties:
+      email:
+          type: string
+          default: mimi@gmail.com
+
+      password:
+          type: string
+          default: password  
+           
+           
+  updatePhoneNumber: 
+    type: object
+    properties:
+      authId:
+          type: string
+          default: a5970193-826b-4163-ad34-c2edc2f2187a
+
+      phoneNumber:
+          type: string
+          default: 07068360382  
+
+
+ 
+           
+      
+
+        
+  updateMessageCount:
+    type: object
+    properties:
+
+      authId:
+          type: String
+          default: '05533fe8-3c2d-4b13-8c20-3425754fc05'
+
+      recieversCountNumber:
+          type: number
+          default: 8    
+
+  
+ 
+          
+          
+  emailAddress:  
+    type: object
+    properties:  
+      authId:
+          type: String
+          default: '05533fe8-3c2d-4b13-8c20-3425754fc056'     
+
+          
+      email:
+          type: String
+          default: 'mimi@gmail.com' 
+
+
+  walletUpdate:  
+    type: object
+    properties:  
+      authId:
+          type: String
+          default: '05533fe8-3c2d-4b13-8c20-3425754fc056'     
+
+          
+      amunt:
+          type: number
+          default: 30     
+
+
+  sendMessages:
+    type: object
+    properties:
+      authId:
+          type: string
+          default: 6c02428b-2fc4-4cc2-b923-c045401f84bf
+     
+     
+      from:
+          type: string
+          default: London
+
+      phoneNumber:
+          type: string
+          default: +2348037335555 
+
+      message:
+          type: string
+          default: "Hello how are you"  
