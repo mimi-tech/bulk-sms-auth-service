@@ -36,5 +36,7 @@ routes.put("/update-wallet",validate(validator.updateWallet), auth.updateWallet)
 
 routes.post("/send-bulk-message",validate(validator.sendBulkMessage), auth.sendBulkMessage);
 
+routes.put("/transfer-fund",validate(validator.transferFund), auth.transferFund);
+
 
 module.exports = routes; 

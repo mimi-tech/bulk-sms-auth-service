@@ -737,10 +737,12 @@ const updatePhoneNumber = async (params) => {
                 message: "user is not existing."
             };
         }
-       
+          //getting the wallet balance
+          let walletBalance;
+          walletBalance = user.dataValues.wallet + amount;
 
         //update users wallet
-        await SendSmsUsers.update({ wallet: amount },
+        await SendSmsUsers.update({ wallet: walletBalance },
             {
                 where: { id: authId }
             });
@@ -756,6 +758,93 @@ const updatePhoneNumber = async (params) => {
         return {
             status: false,
             message: constants.SERVER_ERROR("UPDATE WALLET"),
+        };
+
+ }
+}
+
+
+
+/**
+ * transfer funds endpoint
+ * @param {Object} params senderAuthId, receiverAuthId, senderAmount, receiverAmount.
+ * @returns {Promise<Object>} Contains status, and returns data and message 
+ */
+
+ const transferFund = async (params) => {
+    try {
+        const {senderAuthId, receiverEmail, amount} = params;
+
+       
+          //check if sender exist in the database
+
+          const sender =  await SendSmsUsers.findOne({ 
+            where: {
+                id: senderAuthId
+            }, 
+           })
+
+           if (!sender) {
+            return {
+                status: false,
+                message: "sender user is not existing."
+            };
+        }
+                    //check if receiver exist in the database
+
+                    const receiver =  await SendSmsUsers.findOne({ 
+                        where: {
+                            email: receiverEmail
+                        }, 
+                    })
+
+                    if (!receiver) {
+                        return {
+                            status: false,
+                            message: "receiver is not existing."
+                        };
+                    }
+
+                    //check if user has funds
+                    if(sender.dataValues.wallet < amount){
+                        return {
+                            status: false,
+                            message: "Insufficient balance",
+                        };
+                    }
+
+          //getting the wallet balance of sender
+          let senderWalletBalance;
+          senderWalletBalance = sender.dataValues.wallet - amount;
+
+        //update sender wallet
+        await SendSmsUsers.update({ wallet: senderWalletBalance },
+            {
+                where: { id: senderAuthId }
+            });
+
+             //getting the wallet balance of receiver
+          let receviersWalletBalance;
+          receviersWalletBalance = receiver.dataValues.wallet + amount;
+
+
+             //update receivers wallet
+        await SendSmsUsers.update({ wallet: receviersWalletBalance },
+            {
+                where: { email: receiverEmail }
+            });
+
+
+        return {
+            status: true,
+            message: "Transfer went successfully",
+        };
+
+    } catch (error) {
+        console.log(error);
+        return {
+            status: false,
+            message: constants.SERVER_ERROR("TRANSFER FUNDS"),
         };
 
  }
@@ -797,7 +886,7 @@ const sendBulkMessage = async (params) => {
 
         //check if the user wallet is more than 1.3 for per sms
        
-        if (user.dataValues.wallet >= 100.0) {
+        if (user.dataValues.wallet >= process.env.SMS_AMOUNT) {
             //send sms here
 
             await SmsService.sendMesssageAPI({
@@ -807,7 +896,7 @@ const sendBulkMessage = async (params) => {
               });
 
        //minus 1.3 from the users wallet
-       let newWallet = ussrAccount.dataValues.wallet - process.env.SMS_AMOUNT;
+       let newWallet = user.dataValues.wallet - process.env.SMS_AMOUNT;
 
        //update the users wallet
       const updateUsersWallet = await SendSmsUsers.update({ wallet: newWallet },
@@ -865,5 +954,6 @@ module.exports = {
     
     updateEmailAddress,
     updateWallet,
-    sendBulkMessage
+    sendBulkMessage,
+    transferFund
 }

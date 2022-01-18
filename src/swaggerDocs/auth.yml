@@ -60,7 +60,7 @@ paths:
   /get-all-users:
     get:
       tags:
-        - GET ALL USERS # Value of the tag
+        - USERS # Value of the tag
       summary: GET ALL USERS.
       produces:
         - application/json
@@ -86,7 +86,7 @@ paths:
   /get-user-by-id:
     get:
       tags:
-        - GET A USER BY ID # Value of the tag
+        - USERS # Value of the tag
       summary: GET A USER.
       produces:
         - application/json
@@ -112,7 +112,7 @@ paths:
   /update-user-data-by-id:
     put:
       tags:
-        - UPDATE A USER ACCOUNT # Value of the tag
+        - USERS # Value of the tag
       summary: UPDATE A USER ACCOUNT
       produces:
         - application/json
@@ -141,7 +141,7 @@ paths:
   /delete-user-by-id:
     delete:
       tags:
-        - DELETE USER ACCOUNT BY ID # Value of the tag
+        - USERS # Value of the tag
       summary: DELETE USER ACCOUNT.
       produces:
         - application/json
@@ -169,7 +169,7 @@ paths:
   /update-password:
     put:
       tags: # Tag property
-        - UPDATE PASSWORD # Value of the tag
+        - AUTH # Value of the tag
       summary: FOR UPDATING PASSWORD
       produces:
         - application/json
@@ -192,7 +192,7 @@ paths:
   /update-phone-number:
     put:
       tags: # Tag property
-        - UPDATE PHONE NUMBER # Value of the tag
+        - AUTH # Value of the tag
       summary: FOR UPDATING PHONE NUMBER
       produces:
         - application/json
@@ -218,7 +218,7 @@ paths:
   /update-message-count:
     put:
       tags:
-        - UPDATE USERS MESSAGE COUNT # Value of the tag
+        - MESSAGE # Value of the tag
       summary: UPDATE USERS MESSAGE COUNT BY ID.
       produces:
         - application/json
@@ -243,7 +243,7 @@ paths:
   /update-email-address:
     put:
       tags:
-        - UPDATE USER EMAIL # Value of the tag
+        - AUTH # Value of the tag
       summary: UPDATE USER EMAIL BY ID.
       produces:
         - application/json
@@ -269,7 +269,7 @@ paths:
   /update-wallet:
     put:
       tags:
-        - UPDATE USER WALLET # Value of the tag
+        - WALLET # Value of the tag
       summary: UPDATE USER WALLET BY ID.
       produces:
         - application/json
@@ -292,7 +292,7 @@ paths:
   /send-bulk-message:
     post:
       tags:
-        - SEND BULK MESSAGE # Value of the tag
+        - MESSAGE # Value of the tag
       summary: SEND BULK MESSAGE.
       produces:
         - application/json
@@ -308,6 +308,26 @@ paths:
           required: true # can also be true depending on user preference
           schema: # Schema definition
             $ref: "#/definitions/sendMessages"
+
+  /transfer-fund:
+    put:
+      tags:
+        - WALLET # Value of the tag
+      summary: TRANSFERING FUNDS.
+      produces:
+        - application/json
+      parameters:
+        - in: header
+          name: authorization
+          description: access token
+          required: true
+          default: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfZW1haWwiOiJtaXJpYW1AZ21haWwuY29tIiwiaWQiOiI0NmQ5ZWVkYy1lY2ZlLTRhMGUtODNiYi0wMGJlYzVkMmM4NjUiLCJpYXQiOjE2NDEzMTY2MzgsImV4cCI6MTY0MTMxODQzOH0.Jw52ePK9Rw1Jrvg5bA-1E_a9CSk1lILeNo6FTQZ7mho
+        - in: body # request body
+          name:   transfer-fund # name of request, can be any name
+          description: It enables users transfer fund from one account to another 
+          required: true # can also be true depending on user preference
+          schema: # Schema definition
+            $ref: "#/definitions/transferFund"          
 
 
       responses:
@@ -478,3 +498,20 @@ definitions: # Schema definition for request body
       message:
           type: string
           default: "Hello how are you"  
+
+  transferFund:
+    type: object
+    properties:
+      senderAuthId:
+          type: string
+          default: 6c02428b-2fc4-4cc2-b923-c045401f84bf
+     
+     
+      receiverEmail:
+          type: string
+          default: miriam@gmail.com
+
+
+      amount:
+          type: number
+          default: 20  
