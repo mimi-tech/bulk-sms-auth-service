@@ -24,7 +24,8 @@ const restrictedEndPoints = [
   "/update-email-address",
   "/update-message-count",
   "/update-wallet",
-  "/send-bulk-message"
+  "/send-bulk-message",
+  "/transfer-fund"
 ]
 
 

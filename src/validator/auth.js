@@ -92,4 +92,11 @@ module.exports = {
     message: Joi.string().required(),
    
   },
+  
+  transferFund: {
+    senderAuthId: Joi.string().uuid().required(),
+    receiverEmail: Joi.string().required(),
+    amount: Joi.number().required(),
+   
+  },
 }

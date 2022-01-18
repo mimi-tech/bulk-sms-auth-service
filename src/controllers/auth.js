@@ -80,6 +80,11 @@ const sendBulkMessage= async (req, res) => {
     return response(res, data);
   };
 
+  const transferFund= async (req, res) => {
+    const data = await auth.transferFund(req.form);
+    return response(res, data);
+  };
+
   
 
 
@@ -99,6 +104,7 @@ const sendBulkMessage= async (req, res) => {
     
     updatePhoneNumber,
     updateWallet,
-    sendBulkMessage
+    sendBulkMessage,
+    transferFund
     
 }
