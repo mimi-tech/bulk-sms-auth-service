@@ -84,6 +84,10 @@ const sendBulkMessage= async (req, res) => {
     const data = await auth.transferFund(req.form);
     return response(res, data);
   };
+   const updateWalletForSendSms= async (req, res) => {
+    const data = await auth.updateWalletForSendSms(req.form);
+    return response(res, data);
+  };
 
   
 
@@ -105,6 +109,7 @@ const sendBulkMessage= async (req, res) => {
     updatePhoneNumber,
     updateWallet,
     sendBulkMessage,
-    transferFund
+    transferFund,
+    updateWalletForSendSms
     
 }

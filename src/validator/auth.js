@@ -99,4 +99,7 @@ module.exports = {
     amount: Joi.number().required(),
    
   },
+  updateWalletForSendSms: {
+    authId: Joi.string().uuid().required(),
+  },
 }

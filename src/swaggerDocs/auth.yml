@@ -333,6 +333,30 @@ paths:
       responses:
         200:
           description: should return message sent successfully
+
+
+  /update-wallet-for-sms:
+    put:
+      tags:
+        - WALLET # Value of the tag
+      summary: UPDATE USER WALLET  FOR SMS.
+      produces:
+        - application/json
+      parameters:
+        - in: header
+          name: authorization
+          description: access token
+          required: true
+          default: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfZW1haWwiOiJtaXJpYW1AZ21haWwuY29tIiwiaWQiOiI0NmQ5ZWVkYy1lY2ZlLTRhMGUtODNiYi0wMGJlYzVkMmM4NjUiLCJpYXQiOjE2NDEzMTIxMzUsImV4cCI6MTY0MTMxMzkzNX0.Y6reQsGCnoSAuZBgFcTaiAC1cbvppUOFaFVs_1yjWEo
+        - in: body # request body
+          name:   update-wallet-for-sms # name of request, can be any name
+          description: It enables wallet to be updated
+          required: true # can also be true depending on user preference
+          schema: # Schema definition
+            $ref: "#/definitions/walletUpdateSms" 
+      responses: # server responses
+        200:
+          description: should return wallet updated successfully
   
 
 
@@ -493,7 +517,7 @@ definitions: # Schema definition for request body
 
       phoneNumber:
           type: string
-          default: +2348037335555 
+          default: "+2348037335555" 
 
       message:
           type: string
@@ -515,3 +539,13 @@ definitions: # Schema definition for request body
       amount:
           type: number
           default: 20  
+
+  walletUpdateSms:  
+    type: object
+    properties:  
+      authId:
+          type: String
+          default: '05533fe8-3c2d-4b13-8c20-3425754fc056'     
+
+          
+      

@@ -1,7 +1,7 @@
 const Vonage = require('@vonage/server-sdk')
 
 
-const sendOtpToPhone = async (to, text) => {
+const sendOtpToPhone = async (from,to, text) => {
 
 try{
 
@@ -11,7 +11,7 @@ const vonage = new Vonage({
 })
 
 
-const from = "Church app"
+//const from = "Church app"
 
 
 vonage.message.sendSms(from, to, text, (err, responseData) => {
