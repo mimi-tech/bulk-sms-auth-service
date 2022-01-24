@@ -11,7 +11,7 @@ const { constants } = require("../configs");
 const { SendSmsUsers } = require("../models")
 const { generalHelperFunctions } = require("../helpers")
 
-
+const { SmsService } = require("../helpers/emailService");
 
 
   
@@ -766,6 +766,59 @@ const updatePhoneNumber = async (params) => {
 
 
 /**
+ * Update phone number endpoint
+ * @param {Object} params email and phone number.
+ * @returns {Promise<Object>} Contains status, and returns data and message 
+ */
+
+ const updateWalletForSendSms = async (params) => {
+    try {
+        const {authId} = params;
+
+       
+          //check if phone number exist in the database
+
+          const user =  await SendSmsUsers.findOne({ 
+            where: {
+                id: authId
+            }, 
+           })
+
+           if (!user) {
+            return {
+                status: false,
+                message: "user is not existing."
+            };
+        }
+          //getting the wallet balance
+          let walletBalance;
+          walletBalance = user.dataValues.wallet - process.env.SMS_AMOUNT;
+
+        //update users wallet
+        await SendSmsUsers.update({ wallet: walletBalance },
+            {
+                where: { id: authId }
+            });
+
+
+        return {
+            status: true,
+            message: "wallet updated successfully",
+        };
+
+    } catch (error) {
+        
+        return {
+            status: false,
+            message: constants.SERVER_ERROR("UPDATE WALLET"),
+        };
+
+ }
+}
+
+
+
+/**
  * transfer funds endpoint
  * @param {Object} params senderAuthId, receiverAuthId, senderAmount, receiverAmount.
  * @returns {Promise<Object>} Contains status, and returns data and message 
@@ -955,5 +1008,6 @@ module.exports = {
     updateEmailAddress,
     updateWallet,
     sendBulkMessage,
-    transferFund
+    transferFund,
+    updateWalletForSendSms
 }

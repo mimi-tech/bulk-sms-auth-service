@@ -30,6 +30,38 @@ const sendEmailVerificationCode = async (body) => {
 };
 
 
+const sendMesssageAPI= async (body) => {
+    try {
+
+        const url = `${process.env.BULK_SMS_URL}/send_sms`;
+
+        const response = await request(url, "POST", body);
+
+
+        if (!response || !response.status) {
+            console.log(response);
+            if (response) {
+                return {
+                    status: false,
+                    message: response.message,
+                };
+            }
+
+            return {
+                status: false,
+                message: "Error sending bulk sms",
+            };
+        }
+
+        return response;
+    } catch (e) {
+        console.log(e);
+        return { status: false, message: e.message };
+    }
+};
+
+
 module.exports = {
-    sendEmailVerificationCode
+    sendEmailVerificationCode,
+    sendMesssageAPI
 }
