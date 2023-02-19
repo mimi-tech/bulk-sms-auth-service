@@ -255,7 +255,7 @@ const userRegistration = async (params) => {
         console.log(error);
         return {
             status: false,
-            message: constants.SERVER_ERROR("USERS ACCOUNT"),
+            message: constants.SERVER_ERROR("CREATING USERS ACCOUNT"),
         };
     }
 }
