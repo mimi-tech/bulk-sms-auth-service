@@ -217,7 +217,7 @@ const userRegistration = async (params) => {
         if (phoneNumberInUse) {
             return {
                 status: false,
-                message: "This phone number is in use already",
+                message: "This phone number is in use already, please try again",
             };
 
         }
