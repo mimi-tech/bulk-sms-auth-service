@@ -5,8 +5,8 @@
   "main": "app.js",
   "scripts": {
     "publish": "npm run test && npm start",
-    "start": "node src/index",
-    "dev": "nodemon src/index",
+    "start": "node index",
+    "dev": "nodemon index",
     "test": "mocha src/test/index.test.js --timeout 40000",
     "coverage": "nyc --reporter=html mocha src/test/index.test.js --timeout 40000 --bail",
     "coverage:text": "nyc mocha src/test/index.test.js --timeout 40000 --bail"

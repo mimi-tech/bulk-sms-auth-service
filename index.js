@@ -5,10 +5,10 @@ const cors = require("cors");
 const formData = require("express-form-data");
 const swaggerUi = require("swagger-ui-express");
 
-const routes = require("./routes");
-const { env, swagger } = require("./configs");
-const { security } = require("./middlewares");
-const { response } = require("./helpers");
+const routes = require("./src/routes");
+const { env, swagger } = require("./src/configs");
+const { security } = require("./src/middlewares");
+const { response } = require("./src/helpers");
 
 const app = express();
 const server = http.createServer(app);
