@@ -22,8 +22,8 @@ if (error) {
 
 const config = {
   env: env.NODE_ENV,
-  port: env.PORT,
-  sessionSecret: env.SESSION_SECRET,
+  port: env.PORT || 5001,
+  sessionSecret: env.SECRET,
   dbURL: env.DATABASE_URL,
 };
 

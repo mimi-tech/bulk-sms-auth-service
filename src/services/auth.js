@@ -313,11 +313,16 @@ const getAllUsers = async (params) => {
 
 const getAUser = async (params) => {
 
-    const { authId } = params
+    const { authId,email } = params
     try {
         const user = await SendSmsUsers.findOne({
+
             where: {
-                id: authId
+                
+                [or]: [
+                    { id: authId},
+                    { email:email }
+                  ]
             }
         })
 
@@ -566,7 +571,7 @@ return {
             {
                 where: { email: email }
             });
-               console.log(email)
+               
             return {
                 status: true,
                 message: "Password updated successfully. You may now login",
