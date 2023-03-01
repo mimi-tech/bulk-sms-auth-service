@@ -103,6 +103,12 @@ paths:
           type: string
           default: a5970193-826b-4163-ad34-c2edc2f2187a
           required: true
+
+        - in: query
+          name: email
+          type: string
+          default: mimi@gmail.com
+          required: true   
       responses:
         200:
           description: should return a church member

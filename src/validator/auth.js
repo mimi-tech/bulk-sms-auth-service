@@ -18,7 +18,9 @@ module.exports = {
   
 
   getAUser:{
-    authId: Joi.string().uuid().required(),
+    authId: Joi.string(),
+    email: Joi.string(),
+
   },
 
 

@@ -9,7 +9,7 @@ const nonRestrictedEndPoints = [
 "/create-users-account",
 "/login",
 "/validate-user-token",
-
+"/get-user-by-id",
 "/update-password",
 
 ];
@@ -19,7 +19,7 @@ const restrictedEndPoints = [
   "/update-phone-number",
   "/delete-user-by-id",
   "/get-all-users",
-  "/get-user-by-id",
+  
   "/update-user-data-by-id",
   "/update-email-address",
   "/update-message-count",
