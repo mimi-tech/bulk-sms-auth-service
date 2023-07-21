@@ -31,12 +31,6 @@ Overall, the SMS Delight RESTful APIs provide a secure and efficient backend for
 </tr>
 </table>
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-
-
-
 ## Getting Started
 <p>To get started with the Inventory Management App, follow these steps:</p>
 
